@@ -1,0 +1,25 @@
+id: npm_direct
+domain: packages
+tier: L0
+protocol: http_json
+description: "npm 官方 Registry 直连搜索 API（免 Key，毫秒级响应）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://registry.npmjs.org/-/v1/search"
+  params:
+    text: "{query}"
+    size: "{limit}"
+response:
+  items_path: "objects"
+  modality: "code"
+  output_map:
+    id: "package.name"
+    title: "package.name"
+    url: "package.links.npm || package.links.homepage || package.links.repository"
+    snippet: "package.description | collapse_ws"
+    published_at: "package.date"
+    popularity: "downloads.monthly"
+    popularity_unit: "'monthly_downloads'"

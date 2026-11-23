@@ -1,0 +1,28 @@
+id: nvd_cve
+domain: security
+tier: L0
+protocol: http_json
+description: "NIST 官方 NVD CVE 2.0 漏洞数据库检索 API（可选 NVD_API_KEY 提额）"
+auth:
+  env: NVD_API_KEY
+  required: false
+  placement: "header:apiKey"
+rate_limit:
+  rpm: 10
+  deadline_sec: 12.0
+request:
+  method: GET
+  url: "https://services.nvd.nist.gov/rest/json/cves/2.0"
+  params:
+    keywordSearch: "{query}"
+    resultsPerPage: "{limit}"
+response:
+  items_path: "vulnerabilities"
+  url_template: "https://nvd.nist.gov/vuln/detail/{id}"
+  modality: "text"
+  output_map:
+    id: "cve.id"
+    title: "cve.id"
+    snippet: "cve.descriptions[0].value | collapse_ws"
+    published_at: "cve.published"
+    popularity_unit: "'none'"

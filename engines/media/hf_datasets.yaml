@@ -1,0 +1,27 @@
+id: hf_datasets
+domain: media
+tier: L0
+protocol: http_json
+description: "HuggingFace 官方开放 AI 数据集与评测基准搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://huggingface.co/api/datasets"
+  params:
+    search: "{query}"
+    limit: "{limit}"
+    sort: "downloads"
+    direction: "-1"
+response:
+  items_path: ""
+  url_template: "https://huggingface.co/datasets/{id}"
+  modality: "dataset"
+  output_map:
+    id: "id"
+    title: "id"
+    snippet: "tags | join_comma"
+    published_at: "lastModified"
+    popularity: "downloads"
+    popularity_unit: "'downloads'"

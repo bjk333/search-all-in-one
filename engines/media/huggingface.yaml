@@ -1,0 +1,27 @@
+id: huggingface_models
+domain: media
+tier: L0
+protocol: http_json
+description: "HuggingFace 开源模型公开检索（免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://huggingface.co/api/models"
+  params:
+    search: "{query}"
+    limit: "{limit}"
+    sort: "downloads"
+    direction: "-1"
+response:
+  items_path: ""
+  url_template: "https://huggingface.co/{id}"
+  modality: "model"
+  output_map:
+    id: "id"
+    title: "id"
+    snippet: "pipeline_tag"
+    published_at: "lastModified"
+    popularity: "downloads"
+    popularity_unit: "'downloads/month'"

@@ -1,0 +1,26 @@
+id: hackernews
+domain: news
+tier: L0
+protocol: http_json
+description: "HackerNews Algolia 实时技术社区与热点检索（免 Key）"
+rate_limit:
+  rpm: 120
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://hn.algolia.com/api/v1/search"
+  params:
+    query: "{query}"
+    hitsPerPage: "{limit}"
+    tags: "story"
+response:
+  items_path: "hits"
+  url_template: "https://news.ycombinator.com/item?id={id}"
+  output_map:
+    id: "objectID"
+    title: "title || story_title"
+    url: "url || story_url"
+    snippet: "author"
+    published_at: "created_at"
+    popularity: "points"
+    popularity_unit: "'points'"

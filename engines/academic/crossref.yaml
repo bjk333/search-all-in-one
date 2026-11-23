@@ -1,0 +1,23 @@
+id: crossref
+domain: academic
+tier: L0
+protocol: http_json
+description: "Crossref 学术 DOI 与出版物元数据检索（免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://api.crossref.org/works"
+  params:
+    query: "{query}"
+    rows: "{limit}"
+response:
+  items_path: "message.items"
+  output_map:
+    id: "DOI"
+    title: "title[0]"
+    url: "URL"
+    snippet: "container-title[0] || publisher"
+    popularity: "is-referenced-by-count"
+    popularity_unit: "'citations'"

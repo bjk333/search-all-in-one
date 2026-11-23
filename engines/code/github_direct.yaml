@@ -1,0 +1,34 @@
+id: github_direct
+domain: code
+tier: L0
+protocol: http_json
+description: "GitHub 仓库直连搜索 API（毫秒级响应；自动复用 GITHUB_TOKEN 提额，无 token 也可匿名运行）"
+auth:
+  env: GITHUB_TOKEN
+  required: false
+  placement: header:Authorization
+  prefix: "Bearer "
+rate_limit:
+  rpm: 30
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://api.github.com/search/repositories"
+  headers:
+    Accept: "application/vnd.github+json"
+  params:
+    q: "{query}"
+    sort: "stars"
+    order: "desc"
+    per_page: "{limit}"
+response:
+  items_path: "items"
+  modality: "code"
+  output_map:
+    id: "full_name"
+    title: "full_name"
+    url: "html_url"
+    snippet: "description"
+    published_at: "updated_at"
+    popularity: "stargazers_count"
+    popularity_unit: "'stars'"

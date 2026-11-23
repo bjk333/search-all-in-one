@@ -1,0 +1,27 @@
+id: mdn
+domain: knowledge
+tier: L0
+protocol: http_json
+description: "MDN Web Docs 官方技术文档检索 API（Web/HTTP/JS/CSS/Browser API 一手权威规范）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://developer.mozilla.org/api/v1/search"
+  params:
+    q: "{query}"
+    size: "{limit}"
+response:
+  items_path: "documents"
+  url_template: "https://developer.mozilla.org{path}"
+  modality: "text"
+  score_field: "score"
+  min_score: 25.0
+  output_map:
+    id: "slug"
+    title: "title"
+    path: "mdn_url"
+    snippet: "summary | collapse_ws"
+    popularity: "score"
+    popularity_unit: "'score'"

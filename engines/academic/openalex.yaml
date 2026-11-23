@@ -1,0 +1,30 @@
+id: openalex
+domain: academic
+tier: L0
+protocol: http_json
+description: "OpenAlex 全球开源学术文献图谱（免 Key，可选 OPENALEX_API_KEY）"
+auth:
+  env: OPENALEX_API_KEY
+  required: false
+  placement: query:api_key
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://api.openalex.org/works"
+  headers:
+    User-Agent: "search-all-in-one/1.10.0 (mailto:search-all-in-one@users.noreply.github.com)"
+  params:
+    search: "{query}"
+    per-page: "{limit}"
+response:
+  items_path: "results"
+  output_map:
+    id: "id"
+    title: "display_name || title"
+    url: "doi || id"
+    snippet: "abstract_inverted_index | reconstruct_abstract"
+    published_at: "publication_date"
+    popularity: "cited_by_count"
+    popularity_unit: "'citations'"

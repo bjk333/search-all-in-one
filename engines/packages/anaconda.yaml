@@ -1,0 +1,24 @@
+id: anaconda
+domain: packages
+tier: L0
+protocol: http_json
+description: "Anaconda.org Python 与科学计算包生态关键词搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12.0
+request:
+  method: GET
+  url: "https://api.anaconda.org/search"
+  params:
+    name: "{query}"
+response:
+  items_path: ""
+  url_template: "https://anaconda.org/{full_name}"
+  modality: "code"
+  output_map:
+    id: "full_name || name"
+    full_name: "full_name"
+    title: "full_name || name"
+    url: "html_url || home"
+    snippet: "summary || description | collapse_ws"
+    popularity_unit: "'none'"

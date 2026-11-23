@@ -1,0 +1,26 @@
+id: terraform_registry
+domain: packages
+tier: L0
+protocol: http_json
+description: "Terraform Registry 基础设施即代码 (IaC) 云模块搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://registry.terraform.io/v1/modules/search"
+  params:
+    q: "{query}"
+    limit: "{limit}"
+response:
+  items_path: "modules"
+  url_template: "https://registry.terraform.io/modules/{id}"
+  modality: "code"
+  output_map:
+    id: "id"
+    title: "id"
+    url: "source"
+    snippet: "description | collapse_ws"
+    published_at: "published_at"
+    popularity: "downloads"
+    popularity_unit: "'downloads'"

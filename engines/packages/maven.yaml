@@ -1,0 +1,27 @@
+id: maven
+domain: packages
+tier: L0
+protocol: http_json
+description: "Maven Central (Java/JVM) 官方构件仓库搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://search.maven.org/solrsearch/select"
+  params:
+    q: "{query}"
+    rows: "{limit}"
+    wt: "json"
+response:
+  items_path: "response.docs"
+  url_template: "https://search.maven.org/artifact/{group}/{artifact}"
+  modality: "code"
+  output_map:
+    id: "id"
+    title: "id"
+    group: "g"
+    artifact: "a"
+    snippet: "latestVersion"
+    popularity: "versionCount"
+    popularity_unit: "'versions'"

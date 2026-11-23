@@ -1,0 +1,26 @@
+id: wikipedia
+domain: knowledge
+tier: L0
+protocol: http_json
+description: "Wikipedia 公开搜索 API（免 Key，百科定义与概念入口）"
+rate_limit:
+  rpm: 120
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://en.wikipedia.org/w/api.php"
+  params:
+    action: "query"
+    list: "search"
+    srsearch: "{query}"
+    srlimit: "{limit}"
+    format: "json"
+    utf8: "1"
+response:
+  items_path: "query.search"
+  url_template: "https://en.wikipedia.org/wiki/{title}"
+  output_map:
+    id: "pageid"
+    title: "title"
+    snippet: "snippet | strip_html | collapse_ws"
+    published_at: "timestamp"

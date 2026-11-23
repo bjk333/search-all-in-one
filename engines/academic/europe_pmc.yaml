@@ -1,0 +1,27 @@
+id: europe_pmc
+domain: academic
+tier: L0
+protocol: http_json
+description: "Europe PMC 生物医学与生命科学权威文献检索 API（单请求直出元数据与 DOI）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12.0
+request:
+  method: GET
+  url: "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
+  params:
+    query: "{query}"
+    format: "json"
+    pageSize: "{limit}"
+response:
+  items_path: "resultList.result"
+  url_template: "https://europepmc.org/article/{src}/{id}"
+  modality: "text"
+  output_map:
+    id: "id"
+    src: "source"
+    title: "title"
+    snippet: "journalTitle || authorString | collapse_ws"
+    published_at: "pubYear"
+    popularity: "citedByCount"
+    popularity_unit: "'citations'"

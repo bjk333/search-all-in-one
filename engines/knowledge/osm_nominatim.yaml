@@ -1,0 +1,26 @@
+id: osm_nominatim
+domain: knowledge
+tier: L0
+protocol: http_json
+description: "OpenStreetMap Nominatim 公开地理实体检索（免 Key）"
+rate_limit:
+  rpm: 30
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://nominatim.openstreetmap.org/search"
+  params:
+    q: "{query}"
+    format: "jsonv2"
+    limit: "{limit}"
+response:
+  items_path: ""
+  url_template: "https://www.openstreetmap.org/{osm_type}/{osm_id}"
+  output_map:
+    id: "place_id"
+    title: "display_name"
+    osm_type: "osm_type"
+    osm_id: "osm_id"
+    snippet: "type || category"
+    popularity: "importance"
+    popularity_unit: "'importance'"

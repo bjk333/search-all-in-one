@@ -1,0 +1,27 @@
+id: ietf_rfc
+domain: knowledge
+tier: L0
+protocol: http_json
+description: "IETF Datatracker 官方 RFC 互联网协议规范检索 API（T1 一手标准）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://datatracker.ietf.org/api/v1/doc/document/"
+  params:
+    title__icontains: "{query}"
+    type: "rfc"
+    format: "json"
+    limit: "{limit}"
+response:
+  items_path: "objects"
+  url_template: "https://datatracker.ietf.org/doc/{slug}/"
+  modality: "text"
+  output_map:
+    id: "name"
+    slug: "name"
+    title: "title || name"
+    snippet: "abstract | collapse_ws"
+    published_at: "time"
+    popularity_unit: "'none'"

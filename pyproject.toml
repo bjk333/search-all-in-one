@@ -1,0 +1,40 @@
+[project]
+name = "omni-search"
+version = "1.10.0"
+description = "面向 AI Agent 的可审计、失败感知、声明式公网万物元搜索引擎（CLI + MCP + Skill）"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = [
+    "httpx>=0.27.0",
+    "pyyaml>=6.0.1",
+    "pydantic>=2.7.0",
+    "pypdf>=7.1.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.7",
+]
+semantic = [
+    "model2vec>=0.4.0",
+]
+watch = [
+    "watchdog>=4.0.0",
+]
+
+[project.scripts]
+omni = "omni_search.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/omni_search"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]

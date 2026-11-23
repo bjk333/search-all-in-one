@@ -1,0 +1,23 @@
+id: ddg_instant
+domain: web
+tier: L0
+protocol: http_json
+description: "DuckDuckGo Instant Answer 公开 JSON 接口（免 Key，实体/概念相关网页入口）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://api.duckduckgo.com/"
+  params:
+    q: "{query}"
+    format: "json"
+    no_html: "1"
+    skip_disambig: "1"
+response:
+  items_path: "RelatedTopics"
+  output_map:
+    id: "FirstURL"
+    title: "Text"
+    url: "FirstURL"
+    snippet: "Text"

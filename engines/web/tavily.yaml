@@ -1,0 +1,28 @@
+id: tavily
+domain: web
+tier: L2
+protocol: http_json
+description: "Tavily AI Search API（BYOK：配置 TAVILY_API_KEY 后启用）"
+auth:
+  env: TAVILY_API_KEY
+  required: true
+  placement: json:api_key
+rate_limit:
+  rpm: 60
+  deadline_sec: 15
+request:
+  method: POST
+  url: "https://api.tavily.com/search"
+  json_body:
+    query: "{query}"
+    max_results: "{limit_int}"
+    search_depth: "basic"
+response:
+  items_path: "results"
+  output_map:
+    id: "url"
+    title: "title"
+    url: "url"
+    snippet: "content | collapse_ws"
+    popularity: "score"
+    popularity_unit: "'score'"

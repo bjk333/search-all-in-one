@@ -1,0 +1,26 @@
+id: archive_org
+domain: media
+tier: L0
+protocol: http_json
+description: "Internet Archive 全球公开数字馆藏（书籍/音视频/网页/软件，免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://archive.org/advancedsearch.php"
+  params:
+    q: "{query}"
+    rows: "{limit}"
+    output: "json"
+response:
+  items_path: "response.docs"
+  url_template: "https://archive.org/details/{id}"
+  modality: "media"
+  output_map:
+    id: "identifier"
+    title: "title || identifier"
+    snippet: "mediatype"
+    published_at: "publicdate"
+    popularity: "downloads"
+    popularity_unit: "'downloads'"

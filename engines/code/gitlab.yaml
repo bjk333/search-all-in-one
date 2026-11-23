@@ -1,0 +1,31 @@
+id: gitlab
+domain: code
+tier: L0
+protocol: http_json
+description: "GitLab 官方公开仓库搜索 API（可选 GITLAB_TOKEN 提额）"
+auth:
+  env: GITLAB_TOKEN
+  required: false
+  placement: "header:PRIVATE-TOKEN"
+rate_limit:
+  rpm: 30
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://gitlab.com/api/v4/projects"
+  params:
+    search: "{query}"
+    order_by: "star_count"
+    sort: "desc"
+    per_page: "{limit}"
+response:
+  items_path: ""
+  modality: "code"
+  output_map:
+    id: "id"
+    title: "path_with_namespace"
+    url: "web_url"
+    snippet: "description | collapse_ws"
+    published_at: "last_activity_at"
+    popularity: "star_count"
+    popularity_unit: "'stars'"

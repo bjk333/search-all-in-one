@@ -1,0 +1,26 @@
+id: stackexchange
+domain: knowledge
+tier: L0
+protocol: http_json
+description: "StackOverflow / StackExchange 公开技术问答检索（免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://api.stackexchange.com/2.3/search/advanced"
+  params:
+    order: "desc"
+    sort: "relevance"
+    q: "{query}"
+    site: "stackoverflow"
+    pagesize: "{limit}"
+response:
+  items_path: "items"
+  output_map:
+    id: "question_id"
+    title: "title"
+    url: "link"
+    snippet: "tags | join_comma"
+    popularity: "score"
+    popularity_unit: "'votes'"

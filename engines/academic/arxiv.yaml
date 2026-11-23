@@ -1,0 +1,23 @@
+id: arxiv
+domain: academic
+tier: L0
+protocol: http_atom
+description: "arXiv 预印本 Atom XML 检索（免 Key）"
+rate_limit:
+  rpm: 30
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://export.arxiv.org/api/query"
+  params:
+    search_query: "all:{query}"
+    start: "0"
+    max_results: "{limit}"
+response:
+  items_path: "entry"
+  output_map:
+    id: "id"
+    title: "title | collapse_ws"
+    url: "id"
+    snippet: "summary | collapse_ws"
+    published_at: "published"

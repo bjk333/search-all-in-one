@@ -1,0 +1,24 @@
+id: hf_papers
+domain: academic
+tier: L0
+protocol: http_json
+description: "HuggingFace Papers AI 前沿论文检索（带社区点赞热度与 arXiv 联动，免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://huggingface.co/api/papers/search"
+  params:
+    q: "{query}"
+response:
+  items_path: ""
+  url_template: "https://arxiv.org/abs/{id}"
+  modality: "paper"
+  output_map:
+    id: "paper.id"
+    title: "paper.title || title"
+    snippet: "paper.ai_summary || paper.summary || summary"
+    published_at: "paper.publishedAt || publishedAt"
+    popularity: "paper.upvotes"
+    popularity_unit: "'upvotes'"

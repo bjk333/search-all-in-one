@@ -1,0 +1,35 @@
+id: deepseek
+domain: web
+tier: L2
+protocol: http_json
+description: "DeepSeek 官方网页搜索（api.deepseek.com/v1/tools/search，按成功请求计费，自动复用原仓 DEEPSEEK_API_KEY）"
+auth:
+  env: DEEPSEEK_API_KEY
+  required: true
+  placement: header:Authorization
+  prefix: "Bearer "
+rate_limit:
+  rpm: 300
+  deadline_sec: 15
+request:
+  method: POST
+  url: "https://api.deepseek.com/v1/tools/search"
+  max_query_len: 128
+  headers:
+    Content-Type: "application/json"
+  json_body:
+    query: "{query}"
+    count: "{limit_int}"
+    need_content: false
+response:
+  items_path: "results"
+  score_field: "rerank_score"
+  min_score: 1.0
+  output_map:
+    id: "url"
+    title: "title"
+    url: "url"
+    snippet: "summary || snippet | collapse_ws"
+    published_at: "date"
+    popularity: "rerank_score"
+    popularity_unit: "'rerank_score'"

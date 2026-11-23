@@ -1,0 +1,24 @@
+id: dockerhub
+domain: packages
+tier: L0
+protocol: http_json
+description: "Docker Hub 官方容器镜像搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://hub.docker.com/v2/search/repositories/"
+  params:
+    query: "{query}"
+    page_size: "{limit}"
+response:
+  items_path: "results"
+  url_template: "https://hub.docker.com/r/{id}"
+  modality: "code"
+  output_map:
+    id: "repo_name"
+    title: "repo_name"
+    snippet: "short_description | collapse_ws"
+    popularity: "star_count"
+    popularity_unit: "'stars'"

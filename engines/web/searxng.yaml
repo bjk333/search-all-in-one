@@ -1,0 +1,28 @@
+id: searxng
+domain: web
+tier: L1
+protocol: http_json
+description: "自托管隐私元搜索引擎 SearXNG（配置 SEARXNG_URL 后启用）"
+rate_limit:
+  rpm: 120
+  deadline_sec: 12
+request:
+  method: GET
+  url: "http://127.0.0.1:8080/search"
+  url_env: SEARXNG_URL
+  url_suffix: "/search"
+  headers:
+    X-Forwarded-For: "127.0.0.1"
+  params:
+    q: "{query}"
+    format: "json"
+response:
+  items_path: "results"
+  output_map:
+    id: "url"
+    title: "title"
+    url: "url"
+    snippet: "content | collapse_ws"
+    published_at: "publishedDate"
+    popularity: "score"
+    popularity_unit: "'score'"

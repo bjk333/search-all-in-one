@@ -1,0 +1,26 @@
+id: google_news_rss
+domain: news
+tier: L0
+protocol: http_atom
+description: "Google News 开放 RSS 资讯检索（补强 news 域，消除 GDELT 限流/超时单点风险）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://news.google.com/rss/search"
+  params:
+    q: "{query}"
+    hl: "en-US"
+    gl: "US"
+    ceid: "US:en"
+response:
+  items_path: "item"
+  modality: "text"
+  output_map:
+    id: "guid || link"
+    title: "title | collapse_ws"
+    url: "link"
+    snippet: "description | strip_html | collapse_ws"
+    published_at: "pubDate"
+    popularity_unit: "'none'"

@@ -1,0 +1,26 @@
+id: openlibrary
+domain: media
+tier: L0
+protocol: http_json
+description: "OpenLibrary 全球公开图书与出版物目录检索（免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://openlibrary.org/search.json"
+  params:
+    q: "{query}"
+    limit: "{limit}"
+response:
+  items_path: "docs"
+  url_template: "https://openlibrary.org{key}"
+  modality: "book"
+  output_map:
+    id: "key"
+    key: "key"
+    title: "title"
+    snippet: "author_name[0]"
+    published_at: "first_publish_year"
+    popularity: "edition_count"
+    popularity_unit: "'editions'"

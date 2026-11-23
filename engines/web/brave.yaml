@@ -1,0 +1,26 @@
+id: brave
+domain: web
+tier: L2
+protocol: http_json
+description: "Brave Web Search API（BYOK：配置 BRAVE_API_KEY 后启用）"
+auth:
+  env: BRAVE_API_KEY
+  required: true
+  placement: header:X-Subscription-Token
+rate_limit:
+  rpm: 60
+  deadline_sec: 12
+request:
+  method: GET
+  url: "https://api.search.brave.com/res/v1/web/search"
+  params:
+    q: "{query}"
+    count: "{limit}"
+response:
+  items_path: "web.results"
+  output_map:
+    id: "url"
+    title: "title"
+    url: "url"
+    snippet: "description | strip_html"
+    published_at: "age"

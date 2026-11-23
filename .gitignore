@@ -1,0 +1,35 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.env
+.omni-health.json
+.omni-index.db*
+.omni-cache.db*
+.omni-telemetry.db*
+.omni-monitors/
+deploy/searxng/settings.yml
+deploy/searxng/limiter.toml
+dist/
+build/
+*.egg-info/
+# --- trae-backup 高频写入区忽略（自动生成，勿手改）---
+/.workbuddy/logs/
+/.workbuddy/traces/
+/.workbuddy/file-tree-manifests/
+/.workbuddy/changes-detail/
+/.workbuddy/changes-index/
+/.workbuddy/artifact-index/
+/.workbuddy/clipboard-images/
+/.workbuddy/shell-snapshots/
+/.workbuddy/cache/
+/.workbuddy/blobs/
+/.workbuddy/file-history/
+/.workbuddy/audit-log/
+/.workbuddy/migration/
+/.workbuddy/connectors-marketplace/
+/.workbuddy/tmp/
+/__pycache__/
+/.pytest_cache/
+/chunk_store/
+# --- trae-backup 高频写入区忽略 结束 ---

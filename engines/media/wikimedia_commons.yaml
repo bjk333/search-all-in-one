@@ -1,0 +1,29 @@
+id: wikimedia_commons
+domain: media
+tier: L0
+protocol: http_json
+description: "Wikimedia Commons 开放版权图像、示意图与音视频媒体搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://commons.wikimedia.org/w/api.php"
+  params:
+    action: "query"
+    list: "search"
+    srnamespace: "6"
+    srsearch: "{query}"
+    format: "json"
+    srlimit: "{limit}"
+response:
+  items_path: "query.search"
+  url_template: "https://commons.wikimedia.org/wiki/{title}"
+  modality: "image"
+  output_map:
+    id: "pageid"
+    title: "title"
+    snippet: "snippet | strip_html | collapse_ws"
+    published_at: "timestamp"
+    popularity: "size"
+    popularity_unit: "'bytes'"

@@ -1,0 +1,24 @@
+id: wikidata
+domain: knowledge
+tier: L0
+protocol: http_json
+description: "Wikidata 公开实体知识图谱检索（免 Key）"
+rate_limit:
+  rpm: 120
+  deadline_sec: 10
+request:
+  method: GET
+  url: "https://www.wikidata.org/w/api.php"
+  params:
+    action: "wbsearchentities"
+    search: "{query}"
+    language: "en"
+    limit: "{limit}"
+    format: "json"
+response:
+  items_path: "search"
+  output_map:
+    id: "id"
+    title: "label || id"
+    url: "concepturi"
+    snippet: "description"

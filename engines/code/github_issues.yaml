@@ -1,0 +1,35 @@
+id: github_issues
+domain: code
+tier: L0
+protocol: http_json
+description: "GitHub Issues 与 PR 讨论搜索 API（排错/Bug/设计讨论，可选 GITHUB_TOKEN 提额）"
+auth:
+  env: GITHUB_TOKEN
+  required: false
+  placement: "header:Authorization"
+  prefix: "Bearer "
+rate_limit:
+  rpm: 30
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://api.github.com/search/issues"
+  headers:
+    Accept: "application/vnd.github+json"
+    X-GitHub-Api-Version: "2022-11-28"
+  params:
+    q: "{query} is:issue"
+    sort: "comments"
+    order: "desc"
+    per_page: "{limit}"
+response:
+  items_path: "items"
+  modality: "code"
+  output_map:
+    id: "id"
+    title: "title"
+    url: "html_url"
+    snippet: "body | collapse_ws"
+    published_at: "updated_at"
+    popularity: "comments"
+    popularity_unit: "'comments'"

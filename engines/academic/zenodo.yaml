@@ -1,0 +1,25 @@
+id: zenodo
+domain: academic
+tier: L0
+protocol: http_json
+description: "Zenodo 开放科研论文、系统报告与数据集归档检索 API（免 Key）"
+rate_limit:
+  rpm: 60
+  deadline_sec: 12.0
+request:
+  method: GET
+  url: "https://zenodo.org/api/records"
+  params:
+    q: "{query}"
+    size: "{limit}"
+response:
+  items_path: "hits.hits"
+  url_template: "https://zenodo.org/records/{id}"
+  modality: "text"
+  output_map:
+    id: "id"
+    title: "title || metadata.title"
+    url: "doi_url || links.self_html"
+    snippet: "metadata.description | strip_html | collapse_ws"
+    published_at: "metadata.publication_date || created"
+    popularity_unit: "'none'"

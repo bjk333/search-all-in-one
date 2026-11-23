@@ -1,0 +1,31 @@
+id: gitee
+domain: code
+tier: L0
+protocol: http_json
+description: "Gitee 官方公开仓库搜索 API（可选 GITEE_TOKEN 提额）"
+auth:
+  env: GITEE_TOKEN
+  required: false
+  placement: "query:access_token"
+rate_limit:
+  rpm: 30
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://gitee.com/api/v5/search/repositories"
+  params:
+    q: "{query}"
+    order: "desc"
+    sort: "stars_count"
+    per_page: "{limit}"
+response:
+  items_path: ""
+  modality: "code"
+  output_map:
+    id: "id"
+    title: "full_name"
+    url: "html_url"
+    snippet: "description | collapse_ws"
+    published_at: "updated_at"
+    popularity: "stargazers_count"
+    popularity_unit: "'stars'"

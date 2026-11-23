@@ -1,0 +1,23 @@
+id: rubygems
+domain: packages
+tier: L0
+protocol: http_json
+description: "RubyGems 官方 Ruby 包仓库搜索 API"
+rate_limit:
+  rpm: 60
+  deadline_sec: 10.0
+request:
+  method: GET
+  url: "https://rubygems.org/api/v1/search.json"
+  params:
+    query: "{query}"
+response:
+  items_path: ""
+  modality: "code"
+  output_map:
+    id: "name"
+    title: "name"
+    url: "project_uri || homepage_uri || source_code_uri"
+    snippet: "info | collapse_ws"
+    popularity: "downloads"
+    popularity_unit: "'downloads'"
